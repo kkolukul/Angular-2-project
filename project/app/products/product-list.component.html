@@ -1,0 +1,52 @@
+
+<div style="border:2px dashed blue;">
+  <h3>Params you entered</h3>
+  <p><b>Id</b> : {{paramid}}</p>
+  <p>Name : {{paramname}}</p>
+</div>
+<br>
+    <div class="panel  panel-primary">
+    <div class="panel-heading">
+        Product List
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-2"><b>Search the Product</b></div>
+            <div class="col-md-4">
+                <input type="text" [(ngModel)]="listfilter" placeholder="eg:cart"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Filtered by: {{listfilter}}</h4>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <button (click)="toggleImage()" class="btn btn-primary">Show image</button>
+                        </th>
+                        <th>Products</th>
+                        <th>Code</th>
+                        <th>Available</th>
+                        <th>Price</th>
+                        <th>5 Star rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of products | productFilter:listfilter">
+                     <td *ngIf="showImage"><img [src]="product.imageUrl" [width]="imageWidth" alt="image"></td>
+                     <td>{{product.productName}}</td>
+                     <td>{{product.productCode}}</td>
+                     <td>{{product.releaseDate}}</td>
+                     <td>{{product.price | currency:'EUR':true}}</td>
+                     <td><ml-star [rating]="product.starRating" (ratingClicked)="ratingClicked($event)"></ml-star></td>
+                  </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
